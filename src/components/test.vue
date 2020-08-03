@@ -11,11 +11,12 @@
         <option value="male"> Male </option>
         <option value="female"> Female </option>
     </select><br>
-    <input type="submit" value=" +ADD" @click="add_students()">
+    <input type="submit" value=" +ADD"
+     @click="add_student()">
     <hr>
     <h3> students </h3>
     <ul>
-        <li v-for="student in students" :key="student">
+        <li v-for="student in students" :key="student.name">
         name: {{student.name}} age : {{student.age}} Gender: {{student.gender}} 
         </li>
     </ul>
@@ -26,6 +27,9 @@
 
 <script>
 export default {
+    props:{
+        increment: Function,
+    },
     data() {
         return {
             name:"",
@@ -42,6 +46,9 @@ export default {
         }
     },
     methods: {
+        test_print: function() {
+            console.log(this.students.length)
+        },
         add_student: function() {
             if (this.name === "" | this.gender === "" | this.age === ""){
                 this.error = "please fill all the cardentials";
@@ -53,6 +60,7 @@ export default {
                 this.age = "";
                 this.gender = "";
                 this.error = "";
+                this.increment(this.students.length)
             }
         }
 
